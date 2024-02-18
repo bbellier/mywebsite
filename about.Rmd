@@ -1,8 +1,9 @@
 ---
 #Titre de la page à afficher
 title: "About this site"
-#Article distill
-site: distill::distill_website
+output:
+  distill::distill_article:
+    toc: true
 ---
 
 ## Myself
@@ -13,10 +14,14 @@ I am a studies engineer working on the effects of various stressors (chemicals, 
 
 I have been practicing cycling at a high level since my childhood ([Direct Vélo](https://www.directvelo.com/coureur/18262/benjamin-bellier)) and I am extremely knowledgeable about the subject. Interesting fact: I am one of the few people who can keep from falling asleep during an entire stage of the Tour de France.
 
-![](images/Bike.jpg)
+<p align="center">
+!["Victoire à Vernou-sur-Brenne (crédit photo : La Nouvelle République)"](images/Bike.jpg){width="394"}
+</p>
 
 ## Costa Rica
 
 I had the opportunity to live in Costa Rica for \~1 year. I was able to discover many of nature's wonders, particularly during my first backpacking trip.
 
-![](images/CR_fruits.jpg)
+<p align="center">
+!["Plateau de fruits communs au Costa Rica"](images/CR_fruits.jpg){width="278"}
+</p>

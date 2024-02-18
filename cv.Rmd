@@ -1,19 +1,20 @@
 ---
 #Titre de la page à afficher
 title: "Curriculum vitae"
-#Article distill
-site: distill::distill_website
+output:
+  distill::distill_article:
+    toc: true
 ---
 
-## - Research Interests
+## Research Interests
 
 Multiple stressors & fish
 
-## - Publications
+## Publications
 
 Work in progress...
 
-## - Skills
+## Skills
 
 Ecology : fish, estuary, rivers, catchments, spawning grounds
 
@@ -27,7 +28,7 @@ Coding : R (RStudio), SQL (DBeaver), Markdown (Quarto), Git (Github)
 
 Base Microsoft : Word, Excel, Powerpoint
 
-## - Research jobs
+## Research jobs
 
 **INRAE Centre Nouvelle-Aquitaine**
 
@@ -43,7 +44,7 @@ Base Microsoft : Word, Excel, Powerpoint
 
 -   Writing an article : "Assessing the impact of chemical pollution on endangered migratory fish within a catchment using a Potentially Affected Fraction of species (PAF) approach: a case study at main rivers and spawning ground scales"
 
-## - Educational background
+## Educational background
 
 **Master of "Environmental Sciences" (SPE) in "Environmental Management and Coastal Ecology" (GEEL)**
 
@@ -75,7 +76,7 @@ Base Microsoft : Word, Excel, Powerpoint
 
 -   High-level athlete: organization, autonomy and rigor
 
-## - Industry Experience
+## Industry Experience
 
 **Material handler - Temporary (2019)**
 
@@ -83,7 +84,7 @@ Base Microsoft : Word, Excel, Powerpoint
 
 -   Corporate teamwork
 
-## - Volunteer
+## Volunteer
 
 **4P SCIENSEAS (2022)**
 
@@ -92,7 +93,7 @@ Base Microsoft : Word, Excel, Powerpoint
 -   Bibliographical work to raise public awareness of the problem of plastic pollution
 -   Recreational activities to raise public awareness of the problem of plastic pollution
 
-## - Sports Awards
+## Sports Awards
 
 **Cyclism (National level)**
 
@@ -102,4 +103,4 @@ Base Microsoft : Word, Excel, Powerpoint
 
 *UC Nantes Atlantique (2017) - National level*
 
-**Basket-ball (Regional level)**cing cycling at a high level since my childhood ([Direct Vélo](https://www.directvelo.com/coureur/18262/benjamin-bellier)) and I am extremely knowledgeable about the subject. Interesting fact: I am one of the few people who can keep from falling asleep during an entire stage of the Tour de France.
+**Basket-ball (Regional level)**

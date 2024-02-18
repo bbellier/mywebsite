@@ -13,7 +13,7 @@ output_dir: "docs"
 #Licence
 creative_commons: CC BY-SA
 #Thème à utiliser pour le site
-theme: style/jp.css 
+theme: style/style_bb.css 
 #Barre de navigation 
 navbar: 
   #Afficher à gauche
@@ -28,4 +28,4 @@ output:
   #Article distill
   distill::distill_article:
     #Style à utiliser
-    css: style/jp.css
+    css: style/style_bb.css

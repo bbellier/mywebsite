@@ -109,7 +109,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","site"]}},"value":[{"type":"character","attributes":{},"value":["Curriculum vitae"]},{"type":"character","attributes":{},"value":["distill::distill_website"]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","output"]}},"value":[{"type":"character","attributes":{},"value":["Curriculum vitae"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["toc"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2175,30 +2175,24 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   /*-- Additional custom styles --*/
   /* Add any additional CSS rules below                      */
   </style>
-  <style type="text/css">:root {
-    --font-body:   "Roboto",-apple-system,BlinkMacSystemFont,roboto,segoe ui,Helvetica,Arial,sans-serif;
-    --font-header: "Fira Sans Condensed",Tahoma,"Helvetica Neue",Helvetica,Arial,sans-serif;
-    --font-mono:   SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;
-    --color-background:   #EAE9EA;
-    --color-primary:      #74a08a;
-    --color-primary-dark: #2F4238;
-    --color-secondary:    #8a74a0;
-    --color-tertiary:     #a08a74;
-    --color-text:         #172a3a;
-    --color-white:        #FFFFFF;
+  <style type="text/css">/* Import des polices */
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+  /* Racine */
+  :root {
+    /* Polices */
+    --font-body: "Roboto", "sans-serif";
+    --font-header: "Roboto", "sans-serif";
+    --font-mono: "Roboto", "sans-serif";
+    /* Couleurs */
+    --color-background:   #FFFFFF;
+    --color-primary:      #212129;
+    --color-primary-dark: #212129;
+    --color-secondary:    #6394CF;
+    --color-tertiary:     #212129;
+    --color-text:         #212129;
+    --color-white:        #212129;
   }
-
-  /* base variables */
-
-  /* Edit the CSS properties in this file to create a custom
-     Distill theme. Only edit values in the right column
-     for each row; values shown are the CSS defaults.
-     To return any property to the default,
-     you may set its value to: unset
-     All rows must end with a semi-colon.                      */
-
-  /* Optional: embed custom fonts here with `@import`          */
-  /* This must remain at the top of this file.                 */
 
   html {
     /*-- Main font sizes --*/
@@ -2209,11 +2203,11 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     --fig-cap-size:    13px;
     /*-- Main font colors --*/
     --title-color:     var(--color-text);
-    --header-color:    rgba(0, 0, 0, 0.8);
-    --body-color:      rgba(0, 0, 0, 0.8);
-    --aside-color:     rgba(0, 0, 0, 0.6);
-    --fig-cap-color:   rgba(0, 0, 0, 0.6);
-    /*-- Specify custom fonts ~~~ must be imported above   --*/
+    --header-color:    #212129;
+    --body-color:      #212129;
+    --aside-color:     #212129;
+    --fig-cap-color:   #212129;
+    /*-- Specify custom fonts --*/
     --heading-font:    var(--font-header);
     --mono-font:       var(--font-mono);
     --body-font:       var(--font-body);
@@ -2223,9 +2217,9 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   /*-- ARTICLE METADATA --*/
   d-byline {
     --heading-size:    0.6rem;
-    --heading-color:   rgba(0, 0, 0, 0.5);
+    --heading-color:   #212129;
     --body-size:       0.8rem;
-    --body-color:      rgba(0, 0, 0, 0.8);
+    --body-color:      #212129;
   }
 
   /*-- ARTICLE TABLE OF CONTENTS --*/
@@ -2237,9 +2231,9 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   /*-- ARTICLE APPENDIX --*/
   d-appendix {
     --heading-size:    15px;
-    --heading-color:   rgba(0, 0, 0, 0.65);
+    --heading-color:   #212129;
     --text-size:       0.8em;
-    --text-color:      rgba(0, 0, 0, 0.5);
+    --text-color:      #212129;
   }
 
   /*-- WEBSITE HEADER + FOOTER --*/
@@ -2255,7 +2249,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   }
 
   .distill-site-footer {
-    --text-color:       #ededeb;
+    --text-color:       #212129;
     --text-size:        15px;
     --hover-color:      var(--color-white);
     --bkgd-color:       var(--color-primary);
@@ -2370,7 +2364,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   /* For dropping a shadow behind images */
   .shadow {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    box-shadow: 0 4px 8px 0 #212129, 0 6px 20px 0 #212129;
     text-align: center;
   }
 
@@ -2392,8 +2386,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     overflow: auto !important;
     border-radius: 5px; /* Rounded edges */
     font-size: 12px;
-    color: #fff;
-    background-color: #696969;
+    color: #212129;
+    background-color: #212129;
     padding: 5px 5px 5px 18px;
   }
 
@@ -2402,8 +2396,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   d-article div.sourceCode pre { 
     overflow: auto !important;
     border-radius: 5px; /* Rounded edges */
-    background-color: #fff;
-    color: black;
+    background-color: #212129;
+    color: #212129;
     padding: 5px 5px 5px 18px;
   }
 
@@ -2576,30 +2570,24 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <script src="site_libs/distill-2.2.21/template.v2.js"></script>
   <!--radix_placeholder_site_in_header-->
   <style type="text/css">
+  /* Import des polices */
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+  /* Racine */
   :root {
-    --font-body:   "Roboto",-apple-system,BlinkMacSystemFont,roboto,segoe ui,Helvetica,Arial,sans-serif;
-    --font-header: "Fira Sans Condensed",Tahoma,"Helvetica Neue",Helvetica,Arial,sans-serif;
-    --font-mono:   SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;
-    --color-background:   #EAE9EA;
-    --color-primary:      #74a08a;
-    --color-primary-dark: #2F4238;
-    --color-secondary:    #8a74a0;
-    --color-tertiary:     #a08a74;
-    --color-text:         #172a3a;
-    --color-white:        #FFFFFF;
+    /* Polices */
+    --font-body: "Roboto", "sans-serif";
+    --font-header: "Roboto", "sans-serif";
+    --font-mono: "Roboto", "sans-serif";
+    /* Couleurs */
+    --color-background:   #FFFFFF;
+    --color-primary:      #212129;
+    --color-primary-dark: #212129;
+    --color-secondary:    #6394CF;
+    --color-tertiary:     #212129;
+    --color-text:         #212129;
+    --color-white:        #212129;
   }
-
-  /* base variables */
-
-  /* Edit the CSS properties in this file to create a custom
-     Distill theme. Only edit values in the right column
-     for each row; values shown are the CSS defaults.
-     To return any property to the default,
-     you may set its value to: unset
-     All rows must end with a semi-colon.                      */
-
-  /* Optional: embed custom fonts here with `@import`          */
-  /* This must remain at the top of this file.                 */
 
   html {
     /*-- Main font sizes --*/
@@ -2610,11 +2598,11 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     --fig-cap-size:    13px;
     /*-- Main font colors --*/
     --title-color:     var(--color-text);
-    --header-color:    rgba(0, 0, 0, 0.8);
-    --body-color:      rgba(0, 0, 0, 0.8);
-    --aside-color:     rgba(0, 0, 0, 0.6);
-    --fig-cap-color:   rgba(0, 0, 0, 0.6);
-    /*-- Specify custom fonts ~~~ must be imported above   --*/
+    --header-color:    #212129;
+    --body-color:      #212129;
+    --aside-color:     #212129;
+    --fig-cap-color:   #212129;
+    /*-- Specify custom fonts --*/
     --heading-font:    var(--font-header);
     --mono-font:       var(--font-mono);
     --body-font:       var(--font-body);
@@ -2624,9 +2612,9 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   /*-- ARTICLE METADATA --*/
   d-byline {
     --heading-size:    0.6rem;
-    --heading-color:   rgba(0, 0, 0, 0.5);
+    --heading-color:   #212129;
     --body-size:       0.8rem;
-    --body-color:      rgba(0, 0, 0, 0.8);
+    --body-color:      #212129;
   }
 
   /*-- ARTICLE TABLE OF CONTENTS --*/
@@ -2638,9 +2626,9 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   /*-- ARTICLE APPENDIX --*/
   d-appendix {
     --heading-size:    15px;
-    --heading-color:   rgba(0, 0, 0, 0.65);
+    --heading-color:   #212129;
     --text-size:       0.8em;
-    --text-color:      rgba(0, 0, 0, 0.5);
+    --text-color:      #212129;
   }
 
   /*-- WEBSITE HEADER + FOOTER --*/
@@ -2656,7 +2644,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   }
 
   .distill-site-footer {
-    --text-color:       #ededeb;
+    --text-color:       #212129;
     --text-size:        15px;
     --hover-color:      var(--color-white);
     --bkgd-color:       var(--color-primary);
@@ -2771,7 +2759,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   /* For dropping a shadow behind images */
   .shadow {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    box-shadow: 0 4px 8px 0 #212129, 0 6px 20px 0 #212129;
     text-align: center;
   }
 
@@ -2793,8 +2781,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
     overflow: auto !important;
     border-radius: 5px; /* Rounded edges */
     font-size: 12px;
-    color: #fff;
-    background-color: #696969;
+    color: #212129;
+    background-color: #212129;
     padding: 5px 5px 5px 18px;
   }
 
@@ -2803,8 +2791,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   d-article div.sourceCode pre { 
     overflow: auto !important;
     border-radius: 5px; /* Rounded edges */
-    background-color: #fff;
-    color: black;
+    background-color: #212129;
+    color: #212129;
     padding: 5px 5px 5px 18px;
   }
 
@@ -2814,7 +2802,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <!--/radix_placeholder_site_in_header-->
 
-  <link rel="stylesheet" href="style/jp.css" type="text/css"/>
+  <link rel="stylesheet" href="style/style_bb.css" type="text/css"/>
 
 </head>
 
@@ -2854,18 +2842,33 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
 <div class="d-article">
-<h2 id="research-interests">- Research Interests</h2>
+<div class="d-contents d-contents-float">
+<nav class="l-text toc figcaption" id="TOC">
+<h3>Contents</h3>
+<ul>
+<li><a href="#research-interests" id="toc-research-interests">Research Interests</a></li>
+<li><a href="#publications" id="toc-publications">Publications</a></li>
+<li><a href="#skills" id="toc-skills">Skills</a></li>
+<li><a href="#research-jobs" id="toc-research-jobs">Research jobs</a></li>
+<li><a href="#educational-background" id="toc-educational-background">Educational background</a></li>
+<li><a href="#industry-experience" id="toc-industry-experience">Industry Experience</a></li>
+<li><a href="#volunteer" id="toc-volunteer">Volunteer</a></li>
+<li><a href="#sports-awards" id="toc-sports-awards">Sports Awards</a></li>
+</ul>
+</nav>
+</div>
+<h2 id="research-interests">Research Interests</h2>
 <p>Multiple stressors &amp; fish</p>
-<h2 id="publications">- Publications</h2>
+<h2 id="publications">Publications</h2>
 <p>Work in progress…</p>
-<h2 id="skills">- Skills</h2>
+<h2 id="skills">Skills</h2>
 <p>Ecology : fish, estuary, rivers, catchments, spawning grounds</p>
 <p>Anthopogenic : heatwaves, chemicals</p>
 <p>Ecotoxicology : PAF method</p>
 <p>Modelisation : time series, linear model</p>
 <p>Coding : R (RStudio), SQL (DBeaver), Markdown (Quarto), Git (Github)</p>
 <p>Base Microsoft : Word, Excel, Powerpoint</p>
-<h2 id="research-jobs">- Research jobs</h2>
+<h2 id="research-jobs">Research jobs</h2>
 <p><strong>INRAE Centre Nouvelle-Aquitaine</strong></p>
 <p><em>Cestas-Gazinet (Bordeaux, France) - December 2023 to July 2024</em></p>
 <ul>
@@ -2877,7 +2880,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <ul>
 <li>Writing an article : “Assessing the impact of chemical pollution on endangered migratory fish within a catchment using a Potentially Affected Fraction of species (PAF) approach: a case study at main rivers and spawning ground scales”</li>
 </ul>
-<h2 id="educational-background">- Educational background</h2>
+<h2 id="educational-background">Educational background</h2>
 <p><strong>Master of “Environmental Sciences” (SPE) in “Environmental Management and Coastal Ecology” (GEEL)</strong></p>
 <p><em>La Rochelle University (2021-2023)</em></p>
 <ul>
@@ -2901,25 +2904,25 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <ul>
 <li>High-level athlete: organization, autonomy and rigor</li>
 </ul>
-<h2 id="industry-experience">- Industry Experience</h2>
+<h2 id="industry-experience">Industry Experience</h2>
 <p><strong>Material handler - Temporary (2019)</strong></p>
 <p><em>Les Fromageries Perreault</em></p>
 <ul>
 <li>Corporate teamwork</li>
 </ul>
-<h2 id="volunteer">- Volunteer</h2>
+<h2 id="volunteer">Volunteer</h2>
 <p><strong>4P SCIENSEAS (2022)</strong></p>
 <p><em>Photo Project – Route du Plastique</em></p>
 <ul>
 <li>Bibliographical work to raise public awareness of the problem of plastic pollution</li>
 <li>Recreational activities to raise public awareness of the problem of plastic pollution</li>
 </ul>
-<h2 id="sports-awards">- Sports Awards</h2>
+<h2 id="sports-awards">Sports Awards</h2>
 <p><strong>Cyclism (National level)</strong></p>
 <p><em>VC Lucéen (2020-2022) - National level</em></p>
 <p><em>Angers Cyclisme (2018-2019) - National level</em></p>
 <p><em>UC Nantes Atlantique (2017) - National level</em></p>
-<p><strong>Basket-ball (Regional level)</strong>cing cycling at a high level since my childhood (<a href="https://www.directvelo.com/coureur/18262/benjamin-bellier">Direct Vélo</a>) and I am extremely knowledgeable about the subject. Interesting fact: I am one of the few people who can keep from falling asleep during an entire stage of the Tour de France.</p>
+<p><strong>Basket-ball (Regional level)</strong></p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
