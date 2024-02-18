@@ -1,0 +1,10 @@
+name: "bbellier.com"
+title: "My Website"
+output_dir: "docs"
+left:
+  right:
+    - text: "Home"
+      href: index.html
+    - text: "About"
+      href: about.html
+output: distill::distill_article

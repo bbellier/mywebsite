@@ -1,0 +1,4 @@
+---
+title: "My Website"
+site: distill::distill_website
+---
