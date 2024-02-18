@@ -1,7 +1,8 @@
 ---
 title: "About this site"
-description: |
-  Some additional details about the website
+site: distill::distill_website
 ---
 
-### G+HGello
+### Hello
+
+Hello
