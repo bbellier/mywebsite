@@ -1,10 +1,9 @@
 name: "bbellier.com"
-title: "My Website"
+title: "bbellier.github.io/mywebsite/"
 output_dir: "docs"
+theme: style/jp.css
 navbar:
   left:
-    - text: "Home"
-      href: index.Rmd
     - text: "About"
-      href: about.Rmd
+      href: about.html
 output: distill::distill_article

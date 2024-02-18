@@ -3,6 +3,10 @@ title: "About this site"
 site: distill::distill_website
 ---
 
-### Hello
+## Myself
 
-Hello
+I am a studies engineer working on the effects of various stressors (chemicals, temperature, etc.) on aquatic animals. I am also a huge fan of coding, particularly with [RStudio](https://posit.co/).
+
+## Cyclism
+
+## Costa Rica

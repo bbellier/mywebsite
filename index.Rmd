@@ -1,4 +1,9 @@
 ---
-title: "My Website"
+title: "Welcome to my personal website !"
+image: "images/me.png"
+output:
+  postcards::trestles
 site: distill::distill_website
 ---
+
+## 

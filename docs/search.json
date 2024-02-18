@@ -1,0 +1,19 @@
+{
+  "articles": [
+    {
+      "path": "about.html",
+      "title": "About this site",
+      "author": [],
+      "contents": "\r\nMyself\r\nI am a studies engineer working on the effects of various stressors (chemicals, temperature, etc.) on aquatic animals. I am also a huge fan of coding, particularly with RStudio.\r\nCyclism\r\nCosta Rica\r\n\r\n\r\n\r\n",
+      "last_modified": "2024-02-18T20:43:14+01:00"
+    },
+    {
+      "path": "index.html",
+      "title": "Welcome to my personal website !",
+      "author": [],
+      "contents": "\r\n\r\n          \r\n          \r\n          bbellier.github.io/mywebsite/\r\n          About\r\n          \r\n          \r\n          ☰\r\n          \r\n          \r\n      \r\n        \r\n          \r\n            \r\n              \r\n            \r\n              Welcome to my personal website !\r\n            \r\n            \r\n              \r\n                \r\n            \r\n          \r\n        \r\n        \r\n        \r\n          \r\n            \r\n            \r\n            \r\n          \r\n        \r\n      \r\n    \r\n\r\n    \r\n      \r\n        \r\n          \r\n            \r\n              \r\n            \r\n              Welcome to my personal website !\r\n            \r\n            \r\n              \r\n                \r\n                                  \r\n              \r\n            \r\n            \r\n              \r\n              \r\n              \r\n            \r\n        \r\n      \r\n    \r\n\r\n    \r\n    \r\n    ",
+      "last_modified": "2024-02-18T20:43:15+01:00"
+    }
+  ],
+  "collections": []
+}
