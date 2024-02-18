@@ -1,9 +1,13 @@
 name: "bbellier.com"
 title: "bbellier.github.io/mywebsite/"
+base_url: "https://bbellier.github.io/mywebsite/"
+repository_url: "https://github.com/bbellier/bbellier.com"
 output_dir: "docs"
 theme: style/jp.css
 navbar:
   left:
     - text: "About"
       href: about.html
-output: distill::distill_article
+output: 
+  distill::distill_article:
+    css: style/jp.css
