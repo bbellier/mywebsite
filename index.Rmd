@@ -6,23 +6,23 @@ image: "images/me.png"
 #Liens utiles
 links:
     #CV
-  - text: "CV"
-    href: "links/cv.pdf"
+  - label: "CV"
+    url: "links/cv.pdf"
     #Linkedin
-  - icon: linkedin
-    href: "https://www.linkedin.com/in/bellier-benjamin/"
+  - label: '<i class="fab fa-linkedin fa-lg"></i>'
+    url: "https://www.linkedin.com/in/bellier-benjamin/"
     #Github
-  - icon: github
-    href: "https://github.com/bbellier"
+  - label: '<i class="fab fa-github fa-lg"></i>'
+    url: "https://github.com/bbellier"
     #Google scholar
-  - icon: google
-    href: "https://scholar.google.com/citations?user=GjNCJe0AAAAJ&hl=fr"
+  - label: "GS"
+    url: "https://scholar.google.com/citations?user=GjNCJe0AAAAJ&hl=fr"
     #Researchgate
-  - text: "RG"
-    href: "https://www.researchgate.net/profile/Benjamin-Bellier"
+  - label: "RG"
+    url: "https://www.researchgate.net/profile/Benjamin-Bellier"
     #orcID
-  - text: "OR"
-    href: "https://orcid.org/0009-0006-6863-241X"
+  - label: "ID"
+    url: "https://orcid.org/0009-0006-6863-241X"
 #Sortie
 output:
   #Utilisation du template "trestles" du package "postcards"
