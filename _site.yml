@@ -1,13 +1,31 @@
+#Nom
 name: "bbellier.com"
-title: "bbellier.github.io/mywebsite/"
-base_url: "https://bbellier.github.io/mywebsite/"
-repository_url: "https://github.com/bbellier/bbellier.com"
-output_dir: "docs"
-theme: style/jp.css
-navbar:
+#Titre de la page à afficher
+title: "bbellier.github.io/mywebsite/" 
+#URL du site déployé par github
+base_url: "https://bbellier.github.io/mywebsite/" 
+#URL du répertoire github
+repository_url: "https://github.com/bbellier/bbellier.com" 
+#Icone du site web
+favicon: icons/fish.ico
+#Fichier où déposer les documents créés lors de la création du site
+output_dir: "docs" 
+#Licence
+creative_commons: CC BY-SA
+#Thème à utiliser pour le site
+theme: style/jp.css 
+#Barre de navigation 
+navbar: 
+  #Afficher à gauche
   left:
-    - text: "About"
-      href: about.html
+    #Page(s) à afficher
+    - text: "About" #Texte à afficher
+      href: about.html #Référence html à utiliser
+    - text: "Curriculum vitae" #Texte à afficher
+      href: cv.html #Référence html à utiliser  
+#Style à afficher en sortie      
 output: 
+  #Article distill
   distill::distill_article:
+    #Style à utiliser
     css: style/jp.css
