@@ -1,0 +1,48 @@
+---
+#Titre de la page à afficher
+title: "Publications"
+output: 
+  distill::distill_article:
+    toc: true
+    toc_float: true
+    toc_depth: 2
+    collapsed: true
+    self_contained: false
+    code_folding: false
+---
+
+```{r setup, include=FALSE, echo=FALSE}
+
+knitr::opts_chunk$set(echo = TRUE)
+library(readxl)
+```
+
+```{r, echo=FALSE, results='asis'}
+
+# Charger les données à partir du fichier Excel
+pub_data <- readxl::read_excel("pub_list/pub_list.xlsx")
+
+# Extraire les catégories uniques
+categories <- unique(pub_data$Category)
+
+# Parcourir les catégories et afficher les publications correspondantes
+for (cat in categories) {
+  # Afficher le titre de la catégorie
+  cat(paste0("<h2>", cat, "</h2>\n"))
+  
+  # Filtrer les données pour cette catégorie
+  cat_data <- subset(pub_data, Category == cat)
+  
+  # Parcourir les lignes et afficher les informations formatées
+  for (i in 1:nrow(cat_data)) {
+    # Extraire les informations de la ligne
+    title <- cat_data$Title[i]
+    year <- cat_data$Year[i]
+    journal <- cat_data$Journal[i]
+    filename <- cat_data$FileName[i]
+    
+    # Afficher les informations sur une même ligne sans espaces superflus
+    cat("<p><strong>", title, "</strong>(", paste0(year), "). ", journal, ". <a href='", filename, "' style='color:red;'>Lien vers le PDF</a></p>\n\n")
+  }
+}
+```

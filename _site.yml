@@ -23,6 +23,8 @@ navbar:
       href: about.html #Référence html à utiliser
     - text: "Curriculum vitae" #Texte à afficher
       href: cv.html #Référence html à utiliser 
+    - text: "Publications" #Texte à afficher
+      href: publications.html #Référence html à utiliser 
 #Style à afficher en sortie      
 output: 
   #Article distill
