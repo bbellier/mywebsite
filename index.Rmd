@@ -1,8 +1,8 @@
 ---
 #Titre de la page à afficher
-title: "Welcome to my personal website !"
+title: "Welcome to my website !"
 #Image à afficher
-image: "images/me.png"
+image: "images/me_round.png"
 #Liens utiles
 links:
     #CV
@@ -30,3 +30,5 @@ output:
 #Article distill
 site: distill::distill_website
 ---
+
+This website is under construction..

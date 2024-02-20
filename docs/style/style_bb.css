@@ -10,11 +10,11 @@
   /* Couleurs */
   --color-background:   #FFFFFF;
   --color-primary:      #212129;
-  --color-primary-dark: #212129;
+  --color-primary-dark: darkgray;
   --color-secondary:    #6394CF;
   --color-tertiary:     #212129;
   --color-text:         #212129;
-  --color-white:        #212129;
+  --color-white:        #FFFFFF;
 }
 
 html {
@@ -64,15 +64,15 @@ d-appendix {
 
 .distill-site-header {
   --title-size:       18px;
-  --text-color:       var(--color-primary);
+  --text-color:       var(--color-white);
   --text-size:        18px;
   --hover-color:      var(--color-secondary);
-  --bkgd-color:       var(--color-background);
+  --bkgd-color:       var(--color-primary);
   font-weight:        500;
 }
 
 .distill-site-footer {
-  --text-color:       #212129;
+  --text-color:       var(--color-white);
   --text-size:        15px;
   --hover-color:      var(--color-white);
   --bkgd-color:       var(--color-primary);
@@ -136,29 +136,29 @@ d-article a:hover, a:focus {
 /* Link buttons */
 
 .icon-link {
-    background-color: var(--color-primary);
-    color: var(--color-white);
+    background-color: #FFFFFF; /* Fond blanc */
+    color: var(--color-primary); /* Texte blanc */
     padding: 3px 5px 3px 5px;
     margin: 0 2px 0 2px;
-    border-radius: 5px; /* Rounded edges */
+    border-radius: 5px; /* Bords arrondis */
 }
 
 .icon-link:hover {
-    background-color: var(--color-secondary);
-    color: var(--color-white);
+    background-color: #FFFFFF; /* Fond blanc */
+    color: var(--color-secondary); /* Texte blanc */
 }
 
 .icon-link-details {
-    background-color: var(--color-primary-dark);
-    color: var(--color-white);
+    background-color: #FFFFFF; /* Fond blanc */
+    color: var(--color-primary-dark); /* Texte blanc */
     padding: 3px 5px 3px 5px;
     margin: 0 2px 0 2px;
-    border-radius: 5px; /* Rounded edges */
+    border-radius: 5px; /* Bords arrondis */
 }
 
 .icon-link-details:hover {
-    background-color: var(--color-secondary);
-    color: var(--color-white);
+    background-color: #FFFFFF; /* Fond blanc */
+    color: var(--color-secondary); /* Texte blanc */
 }
 
 /* For floating images - see lab page, for example */

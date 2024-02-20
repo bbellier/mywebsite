@@ -41,13 +41,24 @@ for (cat in categories) {
     journal <- cat_data$Journal[i]
     filename <- cat_data$FileName[i]
     doi <- cat_data$DOI[i]
+    link <- cat_data$Link[i]
     
-    # Afficher les informations sur une même ligne sans espaces superflus
-    cat("<p><strong>", title, "</strong>", 
+    # Vérifier si le DOI est NA
+    if (is.na(doi)) {
+      # Si le DOI est NA, utiliser le lien à la place
+      cat("<p><strong>", title, "</strong>", 
+          paste0("(", year, "). "), 
+          paste0(journal, ". "), 
+          paste0(link, ". "), 
+          "<a href='", filename, "' style='color:red;'>Link to PDF</a></p>\n\n")
+    } else {
+      # Si le DOI n'est pas NA, utiliser le DOI
+      cat("<p><strong>", title, "</strong>", 
           paste0("(", year, "). "), 
           paste0(journal, ". "), 
           paste0(doi, ". "), 
           "<a href='", filename, "' style='color:red;'>Link to PDF</a></p>\n\n")
+    }
   }
 }
 ```

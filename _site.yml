@@ -1,7 +1,7 @@
 #Nom
 name: "bbellier.com"
 #Titre de la page à afficher
-title: "bbellier.github.io/mywebsite/" 
+title: "Home"
 #URL du site déployé par github
 base_url: "https://bbellier.github.io/mywebsite/" 
 #URL du répertoire github
@@ -16,6 +16,7 @@ creative_commons: CC BY-SA
 theme: style/style_bb.css 
 #Barre de navigation 
 navbar: 
+  search: false
   #Afficher à gauche
   left:
     #Page(s) à afficher
@@ -25,6 +26,13 @@ navbar:
       href: cv.html #Référence html à utiliser 
     - text: "Publications" #Texte à afficher
       href: publications.html #Référence html à utiliser 
+  right:
+    - text: "Github"
+      menu:
+        - text: "My account"
+          href: "https://github.com/bbellier"
+        - text: "Fish and PAF method"
+          href: "https://github.com/bbellier/Fish-and-msPAF"
 #Style à afficher en sortie      
 output: 
   #Article distill
