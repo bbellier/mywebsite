@@ -19,14 +19,14 @@ icon_link <- function(icon = NULL, text = NULL, url = NULL) {
   }
 
 #Création d'un icone contenant le lien vers le cv 
-icon_link(text = "CV", url  = "links/cv.pdf") 
+icon_link(text = "Curriculum Vitae", url  = "links/cv.pdf") 
 ```
 
 </center>
 
 ## Research Interests
 
-Multiple stressors & fish
+Anthropogenic stressors & fish
 
 ## Publications
 
@@ -40,11 +40,11 @@ Anthopogenic : heatwaves, chemicals
 
 Ecotoxicology : PAF method
 
-Modelisation : time series, linear model
+Modelling : time series, linear model
 
-Coding : R (RStudio), SQL (DBeaver), Markdown (Quarto), Git (Github)
+Coding : R (RStudio), SQL (DBeaver), Git (Github)
 
-Base Microsoft : Word, Excel, Powerpoint
+Microsoft : Word, Excel, Powerpoint
 
 ## Research jobs
 
@@ -54,7 +54,7 @@ Base Microsoft : Word, Excel, Powerpoint
 
 -   Studying the effects of estuarine heatwaves in fish communities
 
--   Writing an article
+-   Writing an article : work in progress...
 
 **INRAE Centre Nouvelle-Aquitaine**
 

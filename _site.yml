@@ -31,8 +31,8 @@ navbar:
       menu:
         - text: "My account"
           href: "https://github.com/bbellier"
-        - text: "Fish and PAF method"
-          href: "https://github.com/bbellier/Fish-and-msPAF"
+        - text: "My website"
+          href: "https://github.com/bbellier/mywebsite"
 #Style à afficher en sortie      
 output: 
   #Article distill
