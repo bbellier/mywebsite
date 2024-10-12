@@ -1,6 +1,6 @@
 ---
 title: "CURRICULUM VITAE"
-subtitle: "« Le plaisir dans le métier met la perfection dans le travail. »"
+subtitle: "« Pleasure in the job puts perfection in the work. »"
 output:
   distill::distill_article:
     toc: true

@@ -1,7 +1,7 @@
 ---
 #Titre de la page à afficher
 title: "PUBLICATIONS"
-subtitle: "« Savoir pour prévoir afin de pouvoir. »"
+subtitle: "« Knowing so that you can plan so that you can act. »"
 output: 
   distill::distill_article:
     toc: true
