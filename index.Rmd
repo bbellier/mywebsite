@@ -1,0 +1,131 @@
+---
+title: "Welcome to my website !"
+image: "images/me_round.png"
+links:
+  - label: '<i class="fa-solid fa-file"></i>'
+    url: "links/cv.pdf"
+  - label: '<i class="fab fa-linkedin fa-lg"></i>'
+    url: "https://www.linkedin.com/in/bellier-benjamin/"
+  - label: '<i class="fab fa-github fa-lg"></i>'
+    url: "https://github.com/bbellier"
+  - label: '<i class="fa-brands fa-google"></i>'
+    url: "https://scholar.google.com/citations?user=XSl5iikAAAAJ&hl=fr"
+  - label: '<i class="fa-brands fa-researchgate"></i>'
+    url: "https://www.researchgate.net/profile/Benjamin-Bellier"
+  - label: '<i class="fa-brands fa-orcid"></i>'
+    url: "https://orcid.org/0009-0006-6863-241X"
+output:
+  postcards::trestles
+site: distill::distill_website
+---
+
+### \> Latest work:
+
+```{r setup, include=FALSE, echo=FALSE}
+
+knitr::opts_chunk$set(echo = TRUE)
+library(readxl)
+library(tidyverse)
+```
+
+```{r, echo=FALSE, results='asis'}
+
+# Charger les données à partir du fichier Excel
+pub_data <- readxl::read_excel("pub_list/pub_list.xlsx")
+pub_data <- subset(pub_data, Category == "Article")
+pub_data <- pub_data[which.max(pub_data$Year), ]
+
+# Parcourir les catégories et afficher les publications correspondantes
+for (i in 1:nrow(pub_data)) {
+  
+  title <- pub_data$Title[i]
+  year <- pub_data$Year[i]
+  journal <- pub_data$Journal[i]
+  journal_ref <- pub_data$JournalRef[i]
+  filename <- pub_data$FileName[i]
+  doi <- pub_data$DOI[i]
+  link <- pub_data$Link[i]
+  image_name <- gsub(".pdf", ".png", filename)
+  abstract <- pub_data$Abstract[i]
+
+  cat("<p style='text-align: justify;'><strong>", title, "</strong>", 
+        paste0("(", year, "). "), 
+        "<em>", paste0(journal, ", "), "</em>", 
+        paste0(journal_ref, ". "), 
+        paste0(doi, ". "),
+        "<a href='", filename, "' style='color:red;'>Link to PDF</a>", 
+        "</p>",
+        "<p>", "</p>",
+        "<p>", abstract, "</p>", 
+        "\n\n")
+  
+}
+```
+
+### \> Other works:
+
+```{r, echo=FALSE, results='asis'}
+
+# Charger les données à partir du fichier Excel
+pub_data <- readxl::read_excel("pub_list/pub_list.xlsx")
+pub_data <- subset(pub_data, Category %in% c("Article", "Poster", "Presentation"))
+most_recent_index <- which.max(pub_data$Year)
+pub_data <- pub_data[-most_recent_index, ]
+pub_data <- pub_data %>% arrange(-Year, -Month)
+
+# Parcourir les catégories et afficher les publications correspondantes
+for (i in 1:nrow(pub_data)) {
+    
+  # Variables
+  title <- pub_data$Title[i]
+  year <- pub_data$Year[i]
+  journal <- pub_data$Journal[i]
+  journal_ref <- pub_data$JournalRef[i]
+  filename <- pub_data$FileName[i]
+  doi <- pub_data$DOI[i]
+  link <- pub_data$Link[i]
+  categ <- pub_data$Category[i]
+    
+  # Article
+  if (categ == "Article") {
+      cat(
+        "<p style='text-align: justify;'><strong>", title, "</strong>", 
+        paste0("(", year, "). "), 
+        "<em>", paste0(journal, ", "), "</em>", 
+        paste0(journal_ref, ". "), 
+        paste0(doi, ". "),
+        "<a href='", filename, "' style='color:red;'>Link to PDF</a></p>\n\n"
+      )
+      
+    # Master Report
+    } else if (categ == "Master's report" | categ == "Bachelor's report" | categ == "Master's internship") {
+      cat(
+        "<p style='text-align: justify;'><strong>", title, "</strong>", 
+        paste0("(", year, "). "), 
+        "<em>", paste0(journal, ", "), "</em>", 
+        "<a href='", filename, "' style='color:red;'>Link to PDF</a></p>\n\n"
+      )
+      
+    # Poster
+    } else if (categ == "Poster") {
+      cat(
+        "<p style='text-align: justify;'><strong>", title, "</strong>", 
+        paste0("(", year, "). "), 
+        "<em>", paste0(journal, ", "), "</em>", 
+        paste0(doi, ". "),
+        "<a href='", filename, "' style='color:red;'>Link to PDF</a></p>\n\n"
+      )
+      
+    # Presentation
+    } else if (categ == "Presentation") {
+      cat(
+        "<p style='text-align: justify;'><strong>", title, "</strong>", 
+        paste0("(", year, "). "), 
+        "<em>", paste0(journal, ", "), "</em>", 
+        paste0(doi, ". "),
+        "<a href='", filename, "' style='color:red;'>Link to PDF</a></p>\n\n"
+      )
+    
+    }
+  }
+```

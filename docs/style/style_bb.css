@@ -1,0 +1,234 @@
+/* Import des polices */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+/* Racine */
+:root {
+  /* Polices */
+  --font-body: "Roboto", "sans-serif";
+  --font-header: "Roboto", "sans-serif";
+  --font-mono: "Roboto", "sans-serif";
+  /* Couleurs */
+  --color-background:   #FFFFFF;
+  --color-primary:      #212129;
+  --color-primary-dark: darkgray;
+  --color-secondary:    #6394CF;
+  --color-tertiary:     #212129;
+  --color-text:         #212129;
+  --color-white:        #FFFFFF;
+}
+
+html {
+  /*-- Main font sizes --*/
+  --title-size:      50px;
+  --body-size:       1.06rem;
+  --code-size:       14px;
+  --aside-size:      12px;
+  --fig-cap-size:    13px;
+  /*-- Main font colors --*/
+  --title-color:     var(--color-text);
+  --header-color:    #212129;
+  --body-color:      #212129;
+  --aside-color:     #212129;
+  --fig-cap-color:   #212129;
+  /*-- Specify custom fonts --*/
+  --heading-font:    var(--font-header);
+  --mono-font:       var(--font-mono);
+  --body-font:       var(--font-body);
+  --navbar-font:     var(--font-header);
+}
+
+/*-- ARTICLE METADATA --*/
+d-byline {
+  --heading-size:    0.6rem;
+  --heading-color:   #212129;
+  --body-size:       0.8rem;
+  --body-color:      #212129;
+}
+
+/*-- ARTICLE TABLE OF CONTENTS --*/
+.d-contents {
+  --heading-size:    18px;
+  --contents-size:   13px;
+}
+
+/*-- ARTICLE APPENDIX --*/
+d-appendix {
+  --heading-size:    15px;
+  --heading-color:   #212129;
+  --text-size:       0.8em;
+  --text-color:      #212129;
+}
+
+/*-- WEBSITE HEADER + FOOTER --*/
+/* These properties only apply to Distill sites and blogs  */
+
+.distill-site-header {
+  --title-size:       18px;
+  --text-color:       var(--color-white);
+  --text-size:        18px;
+  --hover-color:      var(--color-secondary);
+  --bkgd-color:       var(--color-primary);
+  font-weight:        500;
+}
+
+.distill-site-footer {
+  --text-color:       var(--color-white);
+  --text-size:        15px;
+  --hover-color:      var(--color-white);
+  --bkgd-color:       var(--color-primary);
+}
+
+/*-- Additional custom styles --*/
+/* Add any additional CSS rules below */
+
+html body {
+    background-color: var(--color-background);
+}
+
+/* Links */
+
+a {
+    color: var(--color-primary);
+    border-bottom: 0px;
+    text-decoration: none;
+}
+
+d-article a {
+    color: var(--color-primary);
+    border-bottom: 0px;
+    text-decoration: none;
+}
+
+a:hover, a:focus {
+    color: var(--color-secondary);
+    font-weight: 500;
+    border-color: var(--color-white);
+}
+
+d-article a:hover, a:focus {
+    color: var(--color-secondary);
+    font-weight: 500;
+    border-color: var(--color-white);
+}
+
+/* Buttons on home page */
+
+.btn-outline-dark {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    border: 0px;
+}
+
+.btn-outline-dark:hover {
+    background-color: var(--color-secondary);
+}
+
+/* Menu */
+
+.nav-dropdown-content a {
+    color: var(--color-primary);
+}
+
+.nav-dropdown-content a:hover {
+    background-color: var(--color-background);
+}
+
+/* Link buttons */
+
+.icon-link {
+    background-color: #212129; /* Fond blanc */
+    color: var(--color-white); /* Texte blanc */
+    padding: 3px 5px 3px 5px;
+    margin: 0 2px 0 2px;
+    border-radius: 5px; /* Bords arrondis */
+}
+
+.icon-link:hover {
+    background-color: #FFFFFF; /* Fond blanc */
+    color: #212129; /* Texte blanc */
+}
+
+.icon-link-details {
+    background-color: #FFFFFF; /* Fond blanc */
+    color: var(--color-primary-dark); /* Texte blanc */
+    padding: 3px 5px 3px 5px;
+    margin: 0 2px 0 2px;
+    border-radius: 5px; /* Bords arrondis */
+}
+
+.icon-link-details:hover {
+    background-color: #FFFFFF; /* Fond blanc */
+    color: #212129; /* Texte blanc */
+}
+
+/* For floating images - see lab page, for example */
+
+.float-left img {
+    float:left;
+    padding: 5px 10px 5px 0px;
+}
+
+.float-right img {
+    float:right;
+    padding: 5px 0px 5px 10px;
+}
+
+/* Footer */
+
+.distill-site-footer p {
+    margin-bottom: 0em;
+}
+
+/* Pubs page */
+
+.pub {
+    margin: 0 0 0 0;
+}
+
+/* For dropping a shadow behind images */
+.shadow {
+  box-shadow: 0 4px 8px 0 #212129, 0 6px 20px 0 #212129;
+  text-align: center;
+}
+
+d-article img {
+  margin-bottom: 10px;
+}
+
+/* Smaller spacing in bullet lists */
+
+d-article li {
+  margin-bottom: 0;
+}
+
+/* Code chunks */
+
+/* Chunk output */
+
+d-article pre { 
+  overflow: auto !important;
+  border-radius: 5px; /* Rounded edges */
+  font-size: 12px;
+  color: #212129;
+  background-color: #212129;
+  padding: 5px 5px 5px 18px;
+}
+
+/* Chunk code */
+
+d-article div.sourceCode pre { 
+  overflow: auto !important;
+  border-radius: 5px; /* Rounded edges */
+  background-color: #212129;
+  color: #212129;
+  padding: 5px 5px 5px 18px;
+}
+
+d-article div.sourceCode {
+  background-color: transparent;
+}
+
+/* Justification du texte pour les paragraphes, listes et divs spécifiques */
+p, li, .justify-text {
+  text-align: justify;
+}

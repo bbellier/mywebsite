@@ -1,0 +1,186 @@
+---
+#Titre de la page à afficher
+title: "PUBLICATIONS"
+subtitle: "« Savoir pour prévoir afin de pouvoir. »"
+output: 
+  distill::distill_article:
+    toc: true
+    toc_float: true
+    toc_depth: 2
+    collapsed: true
+    self_contained: false
+    code_folding: false
+---
+
+```{r setup, include=FALSE, echo=FALSE}
+
+knitr::opts_chunk$set(echo = TRUE)
+library(readxl)
+library(tidyverse)
+```
+
+```{r, echo=FALSE, results='asis'}
+
+# Charger les données à partir du fichier Excel
+pub_data <- readxl::read_excel("pub_list/pub_list.xlsx")
+pub_data_title <- readxl::read_excel("pub_list/pub_list.xlsx", 2)
+pub_data <- pub_data %>% arrange(-Year, -Month)
+
+# La boucle `for` parcourt chaque catégorie unique dans la colonne `Category` du tableau `pub_data`.
+# Pour chaque catégorie, un titre est affiché et les publications correspondantes sont listées.
+
+for (cat in unique(pub_data$Category)) {
+  
+  # Filtre les données pour ne conserver que les publications de la catégorie en cours.
+  cat_data <- pub_data %>% filter(Category == cat)
+  cat_data_img <- pub_data_title %>% filter(Category == cat)
+  
+  # Extraction des différentes variables d'intérêt pour chaque publication.
+  img <- unique(cat_data_img$Image)  # Titre de la publication
+    
+  # Affiche le titre de la catégorie dans une balise HTML <h2>.
+  cat(
+  paste0(
+    "<div style='display: flex; align-items: center;'>",  # Flexbox pour aligner l'image et le titre sur la même ligne
+    paste0("<img src='",img,"'alt='Book logo' style='width: 30px; height: 30px; margin-right: 10px;'>"),  # Image du livre
+    "<h2 style='margin: 0;'>", cat, "</h2>",  # Titre avec style pour enlever les marges
+    "</div>\n"
+  )
+)
+  
+  # Filtre les données pour ne conserver que les publications de la catégorie en cours.
+  # cat_data <- pub_data %>% filter(Category == cat)
+  
+  # Parcourt chaque publication de la catégorie filtrée.
+  for (i in 1:nrow(cat_data)) {
+    
+    # Extraction des différentes variables d'intérêt pour chaque publication.
+    title <- cat_data$Title[i]  # Titre de la publication
+    year <- cat_data$Year[i]  # Année de publication
+    journal <- cat_data$Journal[i]  # Nom du journal
+    journal_ref <- cat_data$JournalRef[i]  # Référence complète du journal (volume, pages, etc.)
+    filename <- cat_data$FileName[i]  # Nom du fichier PDF associé
+    doi <- cat_data$DOI[i]  # DOI de la publication
+    link <- cat_data$Link[i]  # Lien éventuel vers la publication
+    categ <- cat_data$Category[i]  # Catégorie de la publication
+    description <- cat_data$Description[i]  # Description de la publication
+    
+    # En fonction de la catégorie de la publication, on formate différemment l'affichage :
+    
+    # Pour les articles
+    if (categ == "Article") {
+      cat(
+        # On structure l'affichage avec un div pour aligner le contenu à gauche et à droite.
+        "<div style='display: flex; justify-content: space-between; align-items: center;'>",
+        
+        # Partie gauche : Texte justifié pour l'affichage du titre, année, journal, etc.
+        "<div style='text-align: justify; width: 95%;'>",
+        "<strong>", title, "</strong>",  # Titre en gras
+        paste0("(", year, "). "),  # Affichage de l'année
+        "<em>", paste0(journal, ", "), "</em>",  # Nom du journal en italique
+        paste0(journal_ref, ". "),  # Référence complète du journal
+        paste0(doi, ". "),  # DOI de l'article
+        "<a href='", filename, "' style='color:red;'>Link to PDF</a>",  # Lien vers le fichier PDF
+        "</div>\n",
+        
+        # Partie droite : Infobulle alignée à droite qui donne plus d'informations sur la publication.
+        "<div style='width: 5%; text-align: right;'>",
+        "<span style='cursor: help; border-bottom:1px dotted;' title='", description, "'>&#9432;</span>",  # L'icône d'info avec description.
+        "</div>",
+        
+        "</div>\n",
+        "<br>"
+      )
+      
+    # Pour les posters
+    } else if (categ == "Poster") {
+      cat(
+        "<div style='display: flex; justify-content: space-between; align-items: center;'>",
+        "<div style='text-align: justify; width: 95%;'>",
+        "<strong>", title, "</strong>", 
+        paste0("(", year, "). "), 
+        "<em>", paste0(journal, ", "), "</em>", 
+        paste0(doi, ". "),
+        "<a href='", filename, "' style='color:red;'>Link to PDF</a> ",
+        "</div>\n",
+        "<div style='width: 5%; text-align: right;'>",
+        "<span style='cursor: help; border-bottom:1px dotted;' title='", description, "'>&#9432;</span>",
+        "</div>",
+        "</div>\n",
+        "<br>"
+      )
+      
+    # Pour les présentations
+    } else if (categ == "Presentation") {
+      cat(
+        "<div style='display: flex; justify-content: space-between; align-items: center;'>",
+        "<div style='text-align: justify; width: 95%;'>",
+        "<strong>", title, "</strong>", 
+        paste0("(", year, "). "), 
+        "<em>", paste0(journal, ", "), "</em>", 
+        paste0(doi, ". "),
+        "<a href='", filename, "' style='color:red;'>Link to PDF</a> ",
+        "</div>\n",
+        "<div style='width: 5%; text-align: right;'>",
+        "<span style='cursor: help; border-bottom:1px dotted;' title='", description, "'>&#9432;</span>",
+        "</div>",
+        "</div>\n",
+        "<br>"
+      )
+    
+    # Pour les rapports de licence
+    } else if (categ == "Bachelor's report") {
+      cat(
+        "<div style='display: flex; justify-content: space-between; align-items: center;'>",
+        "<div style='text-align: justify; width: 95%;'>",
+        "<strong>", title, "</strong>", 
+        paste0("(", year, "). "), 
+        "<em>", paste0(journal, ", "), "</em>", 
+        "<a href='", filename, "' style='color:red;'>Link to PDF</a> ",
+        "</div>\n",
+        "<div style='width: 5%; text-align: right;'>",
+        "<span style='cursor: help; border-bottom:1px dotted;' title='", description, "'>&#9432;</span>",
+        "</div>",
+        "</div>\n",
+        "<br>"
+      )
+    
+    # Pour les rapports de master
+    } else if (categ == "Master's report") {
+      cat(
+        "<div style='display: flex; justify-content: space-between; align-items: center;'>",
+        "<div style='text-align: justify; width: 95%;'>",
+        "<strong>", title, "</strong>", 
+        paste0("(", year, "). "), 
+        "<em>", paste0(journal, ", "), "</em>", 
+        "<a href='", filename, "' style='color:red;'>Link to PDF</a> ",
+        "</div>\n",
+        "<div style='width: 5%; text-align: right;'>",
+        "<span style='cursor: help; border-bottom:1px dotted;' title='", description, "'>&#9432;</span>",
+        "</div>",
+        "</div>\n",
+        "<br>"
+      )
+    
+    # Pour les stages de master
+    } else if (categ == "Master's internship") {
+      cat(
+        "<div style='display: flex; justify-content: space-between; align-items: center;'>",
+        "<div style='text-align: justify; width: 95%;'>",
+        "<strong>", title, "</strong>", 
+        paste0("(", year, "). "), 
+        "<em>", paste0(journal, ", "), "</em>", 
+        paste0(doi, ". "),
+        "<a href='", filename, "' style='color:red;'>Link to PDF</a> ",
+        "</div>\n",
+        "<div style='width: 5%; text-align: right;'>",
+        "<span style='cursor: help; border-bottom:1px dotted;' title='", description, "'>&#9432;</span>",
+        "</div>",
+        "</div>\n",
+        "<br>"
+      )
+    }
+  }
+}
+
+```

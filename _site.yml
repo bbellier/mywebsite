@@ -1,0 +1,25 @@
+name: "bbellier.com"
+title: "🏠 Home"
+base_url: "bbellier.github.io/mywebsite/" 
+favicon: icons/fish.ico
+output_dir: "docs" 
+theme: style/style_bb.css 
+navbar: 
+  search: false
+  left:
+    - text: "◉ 🤔 About" 
+      href: about.html 
+    - text: "◉ 📜 Curriculum vitae" 
+      href: cv.html 
+    - text: "◉ 📖 Publications" 
+      href: publications.html 
+  right:
+    - text: "Github"
+      menu:
+        - text: "My account"
+          href: "https://github.com/bbellier"
+        - text: "My website code"
+          href: "https://github.com/bbellier/mywebsite"
+output: 
+  distill::distill_article:
+    css: style/style_bb.css
