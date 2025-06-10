@@ -13,7 +13,9 @@ editor_options:
   chunk_output_type: console
 ---
 
-In progress... 
+Page in progress... 
+
+## Social networks
 
 <p>
   Follow my activities on&nbsp;
@@ -22,3 +24,134 @@ In progress...
   </a>
 </p>
 
+<p>
+  Cyclism page on:&nbsp;
+  <a href="https://www.directvelo.com/coureur/18262/benjamin-bellier" target="_blank" style="text-decoration: none;">
+    <img src="multimedia/dv.ico" style="width: 2.5em; vertical-align: middle;" alt="Icon">
+  </a>
+</p>
+
+## Historic
+
+```{r setup, echo=FALSE, results='asis'}
+
+# Packages
+library(readxl)
+library(tidyverse)
+library(kableExtra)
+library(glue)
+
+```
+
+```{r sport historic, echo=FALSE, results='asis'}
+
+# Charger les données
+clubs <- read_excel("data/data.xlsx", sheet = "sport historic", na = "NA") %>%
+  arrange(desc(year))
+
+# Regrouper les années par club
+clubs_grouped <- clubs %>%
+  group_by(club, website) %>%
+  summarise(
+    annees = paste(sort(year, decreasing = TRUE), collapse = ", "),
+    .groups = "drop"
+  )
+
+# Regrouper les années par club + trier selon la plus récente année
+clubs_grouped <- clubs %>%
+  group_by(club, website) %>%
+  summarise(
+    annees = paste(sort(year, decreasing = TRUE), collapse = ", "),
+    last_year = max(year),  # Pour trier les clubs
+    .groups = "drop"
+  ) %>%
+  arrange(desc(last_year))
+
+# Générer les blocs HTML pour chaque club
+cards <- clubs_grouped %>%
+  mutate(html = glue(
+    "<div class='club-card'>
+      <h4> {club} (<a href='{website}' target='_blank'><i class='fa-brands fa-internet-explorer'></i></a>) </h4>
+      <p><strong>Années :</strong> {annees}</p>
+    </div>"
+  )) %>%
+  pull(html) %>%
+  paste(collapse = "\n")
+
+# Encapsuler avec un conteneur en grille 3 colonnes
+cat("
+<style>
+.club-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1em;
+}
+
+.club-card {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 0.6em 0.8em;
+  box-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+  background-color: #f9f9f9;
+  font-size: 0.8em;
+}
+.club-card h4 {
+  margin: 0 0 0 0;
+  font-size: 1em;
+  color: #2c3e50;
+}
+.club-card p {
+  margin: 0.2em 0;
+}
+.club-card a {
+  text-decoration: none;
+  color: #fc4c02;
+  font-size: 0.8em;
+}
+</style>
+
+<div class='club-container'>
+", cards, "</div>")
+
+```
+
+## Few photos
+
+```{r sport photos, echo=FALSE, results='asis'}
+
+# Liste des fichiers d'images dans le dossier multimedia/sport
+img_files <- list.files("multimedia/sport", pattern = "\\.(jpg|jpeg|png|webp)$", full.names = TRUE)
+
+# Générer le HTML pour chaque image
+gallery_items <- glue::glue(
+  "<div class='gallery-item'>
+     <img src='{img_files}' alt='Photo sport' loading='lazy'>
+   </div>"
+) %>%
+  paste(collapse = "\n")
+
+# Affichage avec style
+cat("
+<style>
+.gallery-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+  margin-top: 1em;
+}
+.gallery-item img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 1px 1px 5px rgba(0,0,0,0.15);
+  transition: transform 0.2s ease;
+}
+.gallery-item img:hover {
+  transform: scale(1.03);
+}
+</style>
+
+<div class='gallery-container'>
+", gallery_items, "</div>")
+
+```
