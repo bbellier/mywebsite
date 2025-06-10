@@ -18,7 +18,7 @@ Page in progress...
 ## Social networks
 
 <p>
-  Follow my activities on&nbsp;
+  Follow my sport activities (cyclism, triathlon, running) on&nbsp;
   <a href="https://www.strava.com/athletes/36541735" target="_blank" style="text-decoration: none;">
     <i class="fab fa-strava" style="color:#fc4c02; font-size: 1em;"></i>
   </a>
@@ -31,7 +31,7 @@ Page in progress...
   </a>
 </p>
 
-## Historic
+## Cycling historic
 
 ```{r setup, echo=FALSE, results='asis'}
 
@@ -40,8 +40,11 @@ library(readxl)
 library(tidyverse)
 library(kableExtra)
 library(glue)
+library(lubridate)
 
 ```
+
+### Clubs
 
 ```{r sport historic, echo=FALSE, results='asis'}
 
@@ -112,6 +115,132 @@ cat("
 
 <div class='club-container'>
 ", cards, "</div>")
+
+```
+
+<br>
+
+### Results
+
+```{r sport results, echo=FALSE, results='asis'}
+
+# Charger les données
+sport_res <- read_excel("data/data.xlsx", sheet = "sport", na = "NA") %>%
+  mutate(year = year(date)) %>%
+  arrange(desc(date))
+
+# Résumer avec classement
+sport_res_grouped <- sport_res %>%
+  mutate(type = case_when(
+    ranking == 1 ~ "Top 1",
+    ranking <= 3 ~ "Top 3",
+    ranking <= 5 ~ "Top 5",
+    ranking <= 10 ~ "Top 10",
+    ranking > 10 ~ "No result",
+    TRUE ~ NA_character_
+  )) %>%
+  filter(!is.na(type)) %>%
+  group_by(type, year) %>%
+  summarise(n = n(), .groups = "drop")
+
+# Associer chaque type à une icône
+icon_map <- tibble(
+  type = c("Top 1", "Top 3", "Top 5", "Top 10", "No result"),
+  icon = c("top1.ico", "top3.ico", "top5.ico", "top10.ico", "noresult.ico")
+)
+
+# Créer toutes les combinaisons type × année
+year_type_grid <- expand_grid(
+  type = icon_map$type,
+  year = unique(sport_res_grouped$year)
+)
+
+# Fusion complète et tri
+sport_res_full <- year_type_grid %>%
+  left_join(sport_res_grouped, by = c("type", "year")) %>%
+  replace_na(list(n = 0)) %>%
+  left_join(icon_map, by = "type") %>%
+  arrange(desc(year)) %>%
+  mutate(
+    label = ifelse(type == "Top 1", as.character(year), ""),
+    br = ifelse(type == "No result", "<br>", "")
+  )
+
+# Générer le HTML par année (ligne horizontale par année)
+html_results_by_year <- sport_res_full %>%
+  mutate(type = factor(type, levels = icon_map$type)) %>%
+  arrange(desc(year), type) %>%
+  group_by(year) %>%
+  summarise(html = paste(glue(
+    "<div class='icon-block'>
+       <img src='multimedia/{icon}' alt='{type}' class='icon'>
+       <div class='icon-label'>{type}</div>
+       <div class='big-number'>{n}</div>
+     </div>"
+  ), collapse = "\n"), .groups = "drop") %>%
+  mutate(year = factor(year, levels = sort(unique(year), decreasing = TRUE))) %>%
+  arrange(year) %>%
+  mutate(full_html = glue(
+    "<div class='year-row'>
+       <div class='year-title'><i class='fa fa-arrow-right' aria-hidden='true'></i> {year}</div><br>
+       <div class='icon-row'>{html}</div>
+     </div>"
+  )) %>%
+  pull(full_html) %>%
+  paste(collapse = "\n")
+
+# CSS + affichage final
+cat("
+<style>
+.year-row {
+  margin-bottom: 2em;
+}
+.year-title {
+  font-size: 1.4em;
+  font-weight: 600;
+  color: #2c2c2c;
+  margin-bottom: 0.5em;
+}
+.year-title {
+  font-size: 0.95em;  
+  font-weight: 600;
+  color: #2c2c2c;
+  margin-bottom: 0.5em;
+}
+.icon-row {
+  display: flex;
+  gap: 2em;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.icon-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80px;
+}
+.icon-block img.icon {
+  width: 40px;
+  height: auto;
+}
+.icon-label {
+  font-size: 0.8em;
+  color: #666;
+  margin-top: 0.3em;
+}
+.big-number {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #222;
+  margin-top: 0.2em;
+}
+</style>
+
+<div class='result-container'>
+", html_results_by_year, "</div>")
+
+
 
 ```
 
