@@ -115,6 +115,8 @@ cat("
 
 ```
 
+<br> 
+
 ## Few photos
 
 ```{r sport photos, echo=FALSE, results='asis'}
