@@ -8,237 +8,155 @@ editor_options:
   chunk_output_type: console
 ---
 
-## Download my Curriculum Vitae
-
-```{r cv, echo = FALSE}
-
-#Functions from jhelvy (https://github.com/jhelvy)
-make_icon <- function(icon) {return(htmltools::tag("i", list(class = icon)))}
-make_icon_text <- function(icon, text) {return(htmltools::HTML(paste0(make_icon(icon), " ", text)))}
-icon_link <- function(icon = NULL, text = NULL, url = NULL) {
-  if (!is.null(icon)) {text <- make_icon_text(icon, text)}
-  return(htmltools::a(href = url, text, class = "icon-link"))
-  }
-
-#Création d'un icone contenant le lien vers le cv 
-icon_link(text = "Curriculum Vitae", url  = "links/cv.pdf") 
-```
-
-<br>
-
-## Research Interests
-
-Anthropogenic stressors & fish
-
-<br>
-
-## Publications
-
-```{r setup, include=FALSE, echo=FALSE}
-
-knitr::opts_chunk$set(echo = TRUE)
-library(readxl)
-```
-
-```{r, echo=FALSE, results='asis'}
-
-# Charger les données à partir du fichier Excel
-pub_data <- readxl::read_excel("pub_list/pub_list.xlsx")
-pub_data <- subset(pub_data, Category %in% c("Article", "Poster", "Presentation"))
-
-# Extraire les catégories uniques
-categories <- unique(pub_data$Category)
-
-# Parcourir les catégories et afficher les publications correspondantes
-for (cat in categories) {
-  
-  # Afficher le titre de la catégorie
-  cat(paste0("<h3>", cat, "</h3>\n"))
-  
-  # Filtrer les données pour cette catégorie
-  cat_data <- subset(pub_data, Category == cat)
-  
-  for (i in 1:nrow(cat_data)) {
-    
-  # Variables
-  title <- cat_data$Title[i]
-  year <- cat_data$Year[i]
-  journal <- cat_data$Journal[i]
-  journal_ref <- cat_data$JournalRef[i]
-  filename <- cat_data$FileName[i]
-  doi <- cat_data$DOI[i]
-  link <- cat_data$Link[i]
-  image_name <- gsub(".pdf", ".png", filename)
-    
-    # Article
-    if (cat == "Article") {
-      cat(
-        "<p style='text-align: justify;'><strong>", title, "</strong>", 
-        paste0("(", year, "). "), 
-        "<em>", paste0(journal, ", "), "</em>", 
-        paste0(journal_ref, ". "), 
-        paste0(doi, ". "),
-        "<a href='", filename, "' style='color:red;'>Link to PDF</a></p>\n\n"
-      )
-      
-    # Poster
-    } else if (cat == "Poster") {
-      cat(
-        "<p style='text-align: justify;'><strong>", title, "</strong>", 
-        paste0("(", year, "). "), 
-        "<em>", paste0(journal, ", "), "</em>", 
-        paste0(doi, ". "),
-        "<a href='", filename, "' style='color:red;'>Link to PDF</a></p>\n\n"
-      )
-    
-    # Presentation
-    } else if (cat == "Presentation") {
-      cat(
-        "<p style='text-align: justify;'><strong>", title, "</strong>", 
-        paste0("(", year, "). "), 
-        "<em>", paste0(journal, ", "), "</em>", 
-        paste0(doi, ". "),
-        "<a href='", filename, "' style='color:red;'>Link to PDF</a></p>\n\n"
-      )
-    
-    }
-  }
-}
-```
-
-<br>
-
-## Skills
-
-Ecology : fish, estuary, rivers, catchments, spawning grounds
-
-Anthopogenic : heatwaves, chemicals
-
-Ecotoxicology : PAF method
-
-Modelling : time series, linear model
-
-Coding : R (RStudio), SQL (DBeaver), Git (Github)
-
-Microsoft : Word, Excel, Powerpoint
-
-<br>
-
-## My career summary
-
-```{r, echo = FALSE}
+```{r setup, echo=FALSE, results='asis'}
 
 # Packages
-library(leaflet)
+library(readxl)
+library(dplyr)
+library(readxl)
+library(dplyr)
+library(ggplot2)
 library(tidyverse)
+library(glue)
 
-# Data with coordinates
-data <- read_excel("links/career.xlsx") %>% 
-  rename(Longitude = X, Latitude = Y) 
-
-# Create the leaflet map
-map <- leaflet(data) %>%
-  addTiles() %>%
-  addMarkers(~Latitude, ~Longitude, 
-             popup = ~paste("<strong>Country:</strong>", Country, "<br>",
-                            "<strong>Region:</strong>", Region, "<br>",
-                            "<strong>City:</strong>", City, "<br>",
-                            "<strong>Years:</strong>", Year_start, "-", Year_end, "<br>",
-                            "<strong>Type:</strong>", Type))
-
-# Display the map
-map
 ```
 
-<br>
 
 ## Research jobs
 
-**LIENSs, AMARE/BIATSS, Projet ECHO**
+```{r research jobs, echo=FALSE, results='asis'}
 
-*La Rochelle (France) - October 2024 to now*
+# Charger les données des expériences de recherche
+jobs <- read_excel("data/data.xlsx", sheet = "research jobs") %>%
+  arrange(desc(order))
 
--   ...
+# Grouper les lignes par poste (un même poste peut contenir plusieurs projets)
+jobs_grouped <- jobs %>%
+  group_by(order, lab, location, period, link, icons) %>%
+  summarise(Projects = list(cur_data()), .groups = "drop") %>%
+  arrange(desc(order))
 
--   ...
+# Affichage des postes et projets associés en HTML
+for (i in seq_len(nrow(jobs_grouped))) {
+  
+  lab <- jobs_grouped$lab[i]
+  loc <- jobs_grouped$location[i]
+  period <- jobs_grouped$period[i]
+  link <- jobs_grouped$link[i]
+  icon_path <- jobs_grouped$icons[i]
+  
+  # Bloc principal du poste
+  cat(glue(
+    "<div style='margin-bottom: 1.5em;'>
+      <p style='margin-bottom: 0.3em;'>
+        <strong>
+          <img src='{icon_path}' style='height: 1.5em; margin-left: 0.25em; margin-right: 0.25em; vertical-align: top;'/>
+          {lab}
+          (<a href='{link}' target='_blank'><i class='fa-brands fa-internet-explorer'></i></a>)
+        </strong><br>
+        <span style='font-size: 0.85em; color: #555;'><em>{loc}, {period}</em></span>
+      </p>"
+  ))
+  
+  # Liste des projets associés
+  for (p in jobs_grouped$Projects[[i]] %>% split(1:nrow(.))) {
+    
+        # Gérer plusieurs superviseurs / ORCID
+    supervisors <- strsplit(p$supervisor, ",\\s*")[[1]]
+    orcids <- strsplit(p$orcid_number, ",\\s*")[[1]]
+    n <- min(length(supervisors), length(orcids))
 
-**Qualyse, Pôle Croissance et Innovation, Projet PLASTyre**
+    # Création de la chaîne HTML
+    supervisors_html <- paste0(
+      map2(
+        supervisors[1:n], orcids[1:n],
+        ~ glue("{.x} <a href='https://orcid.org/{.y}' target='_blank'>
+                 <i class='fa-brands fa-orcid' style='margin-right: 0.15em;margin-left: 0.15em;'></i>
+               </a>")
+      ),
+      collapse = " | "
+    )
 
-*La Rochelle (France) - September 2024 to October 2024*
+    # Affichage du projet
+    cat(glue(
+      "<ul style='margin-top: 0.2em; margin-bottom: 0.2em; padding-left: 1.2em;'>
+        <li style='margin-bottom: 0.3em;'>
+          <strong><a href='projects.html#{p$project_id}'>{p$project_title}</a></strong><br>
+          <span style='font-size: 0.85em;'>Supervisor: {supervisors_html}</span>
+        </li>
+      </ul>"
+    ))
 
--   ...
+  }
+  
+  cat("</div>")
+}
 
--   ...
-
-**INRAE, EABX, FREEMA ([website](https://eabx.bordeaux-aquitaine.hub.inrae.fr/))**
-
-*Cestas-Gazinet (France) - December 2023 to July 2024*
-
--   Studying the effects of estuarine heatwaves in fish communities
-
--   Writing an article : work in progress...
-
-**INRAE, EABX, FREEMA ([website](https://eabx.bordeaux-aquitaine.hub.inrae.fr/))**
-
-*Cestas-Gazinet (France) - September 2023* *to November 2023*
-
--   Writing an article : "Assessing the impact of chemical pollution on endangered migratory fish within a catchment using a Potentially Affected Fraction of species (PAF) approach: a case study at main rivers and spawning ground scales"
-
-<br>
+```
 
 ## Educational background
 
-**Master of "Environmental Sciences" (SPE) in "Environmental Management and Coastal Ecology" (GEEL) -\> [website](https://formations.univ-larochelle.fr/msc-environmental-management-and-coastal-ecology)**
+```{r educational background, echo=FALSE, results='asis'}
 
-*La Rochelle University (2021-2023)*
+# Charger les données des expériences de recherche
+school <- read_excel("data/data.xlsx", sheet = "educational background") %>%
+  arrange(desc(order))
 
--   Data Analysis, Geographical Information System, Biogeochemical Cycles, Ichtyology, Coastal Sampling, Oceanography, Impacts of Human Activities, *etc.*
+# Affichage des postes et projets associés en HTML
+for (i in seq_len(nrow(school))) {
+  
+  lab <- school$lab[i]
+  loc <- school$location[i]
+  period <- school$period[i]
+  link <- school$link[i]
+  icon_path <- school$icons[i]
+  
+  # Bloc principal du poste
+  cat(glue(
+    "<div style='margin-bottom: 1.5em;'>
+      <p style='margin-bottom: 0.3em;'>
+        <strong>
+          <img src='{icon_path}' style='height: 1.5em; margin-left: 0.25em; margin-right: 0.25em; vertical-align: top;'/>
+          {lab}
+          (<a href='{link}' target='_blank'><i class='fa-brands fa-internet-explorer'></i></a>)
+        </strong><br>
+        <span style='font-size: 0.85em; color: #555;'><em>{loc}, {period}</em></span>
+      </p>
+    </div>")
+    )
+    
+}
 
--   Protocol for sampling, sorting, selection of biological samples and data analysis in the Baie de l'Aiguillon mudflat
+```
 
-**Master of "Integrated Management of Tropical Coastal Areas" (GIACT) -\> [website](https://www.sep.ucr.ac.cr/ppgiact-inicio)**
+## Volunteer engagement
 
-*University of Costa Rica (2022-2023)*
+```{r volunteer, echo=FALSE, results='asis'}
 
--   Courses taught entirely in Spanish
+# Charger les données de volontariat
+vol <- read_excel("data/data.xlsx", sheet = "volunteer") %>%
+  arrange(desc(order))
 
--   Ecological Economics, Oceanography, Politics, Governance, Integrated Tropical Coastal Management, Fisheries Management, *etc.*
+# Affichage HTML des engagements
+for (i in seq_len(nrow(vol))) {
+  
+  lab <- vol$lab[i]
+  period <- vol$period[i]
+  link <- vol$link[i]
+  icon_path <- vol$icons[i]
 
--   Protocol for sampling water characteristics in estuaries with different anthropogenic impacts
+cat(glue(
+    "<p>
+      <strong>
+      <img src='{icon_path}' style='height: 1.5em; margin-left: 0.25em; margin-right: 0.25em; vertical-align: top;'/>
+      {lab} 
+      (<a href='{link}' target='_blank'><i class='fa-brands fa-internet-explorer'></i></a>)
+      </strong><br>
+      <span style='font-size: 0.85em;'><em>{period}</em></span>
+    </p>"
+    )
+  )
+  
+}
 
-**License of Organismal and Population Biology (BOP) -\> [website](https://formations.univ-angers.fr/fr/offre-de-formation/licence-lmd-LILMD/sciences-technologies-sante-STS/licence-sciences-de-la-vie-et-de-la-terre-KQJGEOCC/l3-parcours-biologie-des-organismes-et-populations-LMETB9C9/parcours-bop-LMEXXMTB.html)**
-
-*Angers University (2018-2021)*
-
--   Genetics, Ecotoxicology, Zoology, Ethology, Physiology, Microbiology, Anatomy, Population Dynamics, *etc.*
-
-**Scientific Baccalaureate in Life and Earth Sciences -- 2018 (sports-study programme) -\> [website](https://saintthomasdaquin.org/section-sportive/cyclisme-masculin/)**
-
-*Saint Thomas D'Aquin high school*
-
--   High-level athlete: organization, autonomy and rigor
-
-<br>
-
-## Volunteer
-
-**4P SCIENSEAS (2022) -\> [website](https://4pscienseas.org/)**
-
-*Photo Project -- Route du Plastique*
-
--   Bibliographical work to raise public awareness of the problem of plastic pollution
--   Recreational activities to raise public awareness of the problem of plastic pollution
-
-<br>
-
-## Sports Awards
-
-**Cyclism (National level)**
-
-*VC Lucéen (2020-2022) - National level*
-
-*Angers Cyclisme (2018-2019) - National level*
-
-*UC Nantes Atlantique (2017) - National level*
-
-**Basket-ball (Regional level)**
+```

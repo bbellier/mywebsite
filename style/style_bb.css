@@ -19,11 +19,11 @@
 
 html {
   /*-- Main font sizes --*/
-  --title-size:      50px;
-  --body-size:       1.06rem;
-  --code-size:       14px;
-  --aside-size:      12px;
-  --fig-cap-size:    13px;
+  --title-size:        40px;
+  --body-size:       1.01rem;
+  --code-size:       11px;
+  --aside-size:      9px;
+  --fig-cap-size:    10px;
   /*-- Main font colors --*/
   --title-color:     var(--color-text);
   --header-color:    #212129;
@@ -47,8 +47,8 @@ d-byline {
 
 /*-- ARTICLE TABLE OF CONTENTS --*/
 .d-contents {
-  --heading-size:    18px;
-  --contents-size:   13px;
+  --heading-size:    15px;
+  --contents-size:   10px;
 }
 
 /*-- ARTICLE APPENDIX --*/
@@ -63,9 +63,9 @@ d-appendix {
 /* These properties only apply to Distill sites and blogs  */
 
 .distill-site-header {
-  --title-size:       18px;
+  --title-size:       15px;
   --text-color:       var(--color-white);
-  --text-size:        18px;
+  --text-size:        15px;
   --hover-color:      var(--color-secondary);
   --bkgd-color:       var(--color-primary);
   font-weight:        500;
@@ -208,7 +208,7 @@ d-article li {
 d-article pre { 
   overflow: auto !important;
   border-radius: 5px; /* Rounded edges */
-  font-size: 12px;
+  font-size: 9px;
   color: #212129;
   background-color: #212129;
   padding: 5px 5px 5px 18px;
@@ -232,3 +232,4 @@ d-article div.sourceCode {
 p, li, .justify-text {
   text-align: justify;
 }
+

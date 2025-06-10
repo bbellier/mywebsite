@@ -1,0 +1,100 @@
+---
+title: "COMMUNICATIONS"
+subtitle: "« Knowing so that you can plan so that you can act. »"
+output: 
+  distill::distill_article:
+    toc: true
+    toc_float: true
+    toc_depth: 2
+    collapsed: true
+    self_contained: false
+    code_folding: false
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r communications setup, echo=FALSE, results='asis'}
+
+# Packages
+library(readxl)
+library(dplyr)
+library(readxl)
+library(dplyr)
+library(ggplot2)
+
+```
+
+
+```{r communications data, echo=FALSE, results='asis'}
+
+# Chargement des données
+pub_data <- read_excel("data/data.xlsx", sheet = "publications & communications", na = "NA") %>%
+  filter(category %in% c("Webinar", "Presentation", "Poster")) %>%
+  arrange(desc(year), desc(month))
+
+icons_data <- read_excel("data/data.xlsx", sheet = "icons", na = "NA")
+
+```
+
+
+```{r communications, echo=FALSE, results='asis'}
+
+# Affichage des publications
+for (cat in unique(pub_data$category)) {
+  
+  cat_data <- filter(pub_data, category == cat)
+  icon_path <- icons_data %>% filter(category == cat) %>% pull(image) %>% first()
+  
+  if (is.na(icon_path)) icon_path <- "icons/default.ico"
+
+  cat(
+    "<div style='display: flex; align-items: center;'>",
+    paste0("<img src='", icon_path, "' style='width: 50px; margin-right: 10px;'>"),
+    "<h2 style='margin: 0;'>", cat, "</h2></div><br>"
+  )
+
+  for (i in 1:nrow(cat_data)) {
+    
+    row <- cat_data[i, ]
+    cat(
+      "<div style='display: flex; justify-content: space-between; align-items: center;'>",
+      "<div style='width: 95%; text-align: justify;'>",
+      "<strong>", row$title, "</strong>", paste0("(", row$year, "). "),
+      if (!is.na(row$journal)) paste0("<em>", row$journal, if (!is.na(row$journal_ref)) paste0(", ", row$journal_ref), "</em>. ") else "",
+      if (!is.na(row$doi)) paste0("<a href='", row$doi, "' target='_blank'>", row$doi, "</a>. "),
+      if (!is.na(row$filename) & !is.na(row$icons)) {
+      width <- if (row$icons == "multimedia/video-download.ico") "24px" else "18px"
+      paste0(
+        "<a href='", row$filename, "' target='_blank'>
+          <img src='", row$icons, "' style='width: ", width, "; vertical-align: top;' title='File'></a>"
+      )
+      },
+      "</div></div><br>"
+    )
+    
+  }
+}
+
+```
+
+```{r communications plot, echo=FALSE, results='asis', fig.width=7, fig.height=4}
+
+# Graphique publications par année
+plot_data <- pub_data %>%
+  count(year) %>%
+  arrange(desc(year))
+
+# Détermination du nombre maximal de publications 
+max_n <- max(plot_data$n, na.rm = TRUE)
+
+# Création du graphique
+ggplot(plot_data, aes(x = as.factor(year), y = n)) +
+  geom_line(group = 1, color = "black") +
+  geom_point(size = 6, color = "black") +
+  geom_text(aes(label = n), color = "white", size = 3, vjust = 0.5) +
+  labs(x = "", y = "Number of publications") +
+  theme_test() +
+  theme(axis.title.y = element_text(face = "bold")) +
+  scale_y_continuous(limits = c(0, max_n + 2))
+
+```

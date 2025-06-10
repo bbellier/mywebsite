@@ -1,0 +1,98 @@
+---
+title: "PROJECTS"
+subtitle: "« He who cannot describe the problem will never find the solution to that problem. »"
+output: 
+  distill::distill_article:
+    toc: true
+    toc_float: true
+    toc_depth: 2
+    collapsed: true
+    self_contained: false
+    code_folding: false
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r projects setup, include=FALSE}
+
+# Chargement des packages nécessaires
+library(readxl)      
+library(knitr)       
+library(kableExtra)  
+library(dplyr)       
+library(purrr)      
+library(glue)    
+library(htmltools) 
+
+```
+
+
+```{r projects data, include=FALSE}
+
+# Lecture du fichier contenant les projets
+proj_data <- read_excel("data/data.xlsx", sheet = "projects")
+
+# Tri décroissant par la colonne "Order" (plus haut = plus prioritaire)
+proj_data <- proj_data %>% 
+  arrange(desc(order))
+
+# Sélection uniquement des colonnes pour affichage (sans renommage)
+proj_data_clean <- proj_data %>%
+  select(project_id, project_title, subject, species, details, keywords)
+
+```
+
+```{r projects, echo=FALSE, results='asis'}
+
+# Fonction qui génère un bloc HTML pour chaque projet (accoréon)
+generate_accordion <- function(id, title, subject, species, context, keywords, icon_path) {
+  
+  html <- glue('
+<div class="project-card" id="{id}">
+  <button class="accordion project-toggle" data-id="{id}">
+    <img src="{icon_path}" style="height: 2.0em; vertical-align: bottom; margin-top: 0.5em; margin-right: 0.5em;" />
+    {title}
+  </button>
+  <div class="panel">
+    <ul>
+      <li><strong>Keywords:</strong> {keywords}</li>
+      <li><strong>Subject:</strong> {subject}</li>
+      <li><strong>Species:</strong> {species}</li>
+      <li><strong>Missions:</strong> {context}</li>
+    </ul>
+  </div>
+</div>
+')
+  
+  return(html)
+  
+}
+
+# Application de la fonction à chaque ligne du tableau des projets
+output_html <- purrr::pmap_chr(
+  list(
+    proj_data_clean$project_id,
+    proj_data_clean$project_title,
+    proj_data_clean$subject,
+    proj_data_clean$species,
+    proj_data_clean$details,
+    proj_data_clean$keywords,
+    proj_data$icons  # ajout ici
+  ),
+  generate_accordion
+)
+
+# Affichage du HTML généré
+HTML(paste(output_html, collapse = "\n"))
+
+```
+
+```{r css et javascript, results='asis', echo=FALSE}
+
+# Injection dynamique du CSS (style visuel) et du JavaScript (comportement interactif)
+cat('
+<link rel="stylesheet" href="style/style_projects.css">
+<script src="style/func_projects.js"></script>
+')
+
+``` 

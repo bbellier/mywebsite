@@ -1,0 +1,106 @@
+---
+title: "TEACHING & MENTORING"
+subtitle: "« He who cannot describe the problem will never find the solution to that problem. »"
+output: 
+  distill::distill_article:
+    toc: true
+    toc_float: true
+    toc_depth: 2
+    collapsed: true
+    self_contained: false
+    code_folding: false
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r teaching mentoring setup, echo=FALSE, results='asis'}
+
+# Packages
+library(readxl)
+library(dplyr)
+library(glue)
+
+```
+
+
+```{r teaching mentoring, echo=FALSE, results='asis'}
+
+# Chargement des données
+pub_data <- read_excel("data/data.xlsx", sheet = "teaching & mentoring", na = "NA") %>%
+  arrange(desc(order))
+
+# Parcours des types (Teaching / Mentoring)
+for (typ in unique(pub_data$type)) {
+
+  # Titre de section
+  cat(glue("## {typ}\n\n"))
+
+  # Regroupement par expérience
+  grouped <- pub_data %>%
+    filter(type == typ) %>%
+    group_by(lab, location, period) %>%
+    group_split()
+
+  for (group in grouped) {
+
+    # Infos générales (première ligne du groupe)
+    info <- group[1, ]
+    icon_path <- info$icons
+    if (is.na(icon_path)) icon_path <- "icons/default.ico"
+
+    # Titre avec icône
+    cat(glue("<p><strong>
+              <img src='{icon_path}' style='height: 1.5em; margin: 0 0.25em; vertical-align: top;'/>
+              {info$lab}</strong> -- <em>{info$location}, {info$period}</em></p>\n"))
+
+    # Liste des tâches pour cette expérience
+    for (i in 1:nrow(group)) {
+      row <- group[i, ]
+
+      # Mentoring : image à côté du nom de l'étudiant
+      if (typ == "Mentoring" && !is.na(row$image)) {
+        student_line <- glue(
+          "<img src='{row$image}' style='height: 1.5em; vertical-align: top; 
+          border-radius: 50%; margin-left: 0.3em; margin-right: 0.3em;'/> {row$students}"
+          )
+      } else {
+        student_line <- row$students
+      }
+
+            # Préparation du nom de l'étudiant avec ou sans image (si Mentoring)
+      if (typ == "Mentoring" && !is.na(row$image)) {
+        student_line <- glue(
+          "<img src='{row$image}' style='height: 1.5em; vertical-align: top; 
+          border-radius: 50%; margin-left: 0.3em; margin-right: 0.3em;'/> {row$students}"
+        )
+      } else {
+        student_line <- row$students
+      }
+      
+      # Ajout éventuel du lien vers le fichier
+      file_link <- if (!is.na(row$filename)) {
+        glue(" <a href='{row$filename}' target='_blank'>
+                <img src='multimedia/PDF.ico' style='width: 18px; vertical-align: top; margin-left: 0.2em;' title='Voir le fichier'></a>")
+      } else {
+        ""
+      }
+      
+      # Affichage avec ou sans cours
+      if (!is.na(row$curses)) {
+        cat(glue(
+          "<ul style='margin-top: 0; margin-bottom: 0.5em;'>
+             <li><strong>{row$curses}</strong><br>
+             <i class='fa-solid fa-arrow-right'></i> {student_line}{file_link}</li>
+           </ul>\n"
+        ))
+      } else {
+        cat(glue(
+          "<p><i class='fa-solid fa-arrow-right'></i> {student_line}{file_link}</p>\n"
+        ))
+      }
+      
+    }
+  }
+}
+
+```

@@ -1,0 +1,24 @@
+---
+title: "SPORT"
+subtitle: "« You are your only limit. »"
+output: 
+  distill::distill_article:
+    toc: true
+    toc_float: true
+    toc_depth: 2
+    collapsed: true
+    self_contained: false
+    code_folding: false
+editor_options: 
+  chunk_output_type: console
+---
+
+In progress... 
+
+<p>
+  Follow my activities on&nbsp;
+  <a href="https://www.strava.com/athletes/36541735" target="_blank" style="text-decoration: none;">
+    <i class="fab fa-strava" style="color:#fc4c02; font-size: 1em;"></i>
+  </a>
+</p>
+
