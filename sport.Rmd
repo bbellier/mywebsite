@@ -246,6 +246,22 @@ cat("
 
 <br> 
 
+## My documents
+
+<p>
+  <a href="multimedia/sport/licence_2025_ffc.pdf" target="_blank" style="text-decoration: none; color: inherit;">
+    My FFC license 2025</i>
+  </a>
+</p>
+
+<p>
+  <a href="multimedia/sport/licence_2025_ufolep.pdf" target="_blank" style="text-decoration: none; color: inherit;">
+    My UFOLEP license 2025</i>
+  </a>
+</p>
+
+<br>
+
 ## Few photos
 
 ```{r sport photos, echo=FALSE, results='asis'}
