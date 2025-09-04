@@ -2,11 +2,13 @@
 title: "README"
 format: html
 editor: visual
+editor_options: 
+  chunk_output_type: console
 ---
 
 ## README
 
-```{r wordcloud setup, include=FALSE, echo=FALSE}
+```{r setup, include=FALSE, echo=FALSE}
 
 # Charger les packages nécessaires pour analyse de texte
 library(pdftools)
@@ -15,37 +17,7 @@ library(tidytext)
 library(wordcloud2)
 library(tm)
 library(leaflet)
-
-```
-
-```{r wordcloud, echo=FALSE, results='asis', fig.align='left', fig.asp=1}
-
-# Charger les résumés depuis le fichier Excel
-pub_data <- read_excel("pub_list/pub_list.xlsx") %>%
-  filter(Category %in% c("Article", "Poster", "Presentation", "Webinar"),
-         !is.na(Abstract))
-
-# Tokenisation et nettoyage des mots
-abstract_df <- pub_data %>%
-  select(Abstract) %>%
-  unnest_tokens(word, Abstract) %>%
-  filter(!word %in% stop_words$word,
-         !word %in% tm::stopwords("fr"),
-         !word %in% c("oips", "al", "fig", "d'un", "na", "l'eau", "aim", "access", "based", "affected"),
-         str_detect(word, "[a-z]"))
-
-# Compter les mots fréquents
-word_freq <- abstract_df %>%
-  count(word, sort = TRUE) %>%
-  filter(n >= 3) %>%
-  slice_max(n, n = 30)
-
-# Générer le nuage de mots
-wordcloud2(data = word_freq,
-           size = 1,
-           color = rep_len(c("#4B9CD3", "#6A9FB5", "#AAC8D8"), nrow(word_freq)),
-           shape = "circle",
-           rotateRatio = 0.1)
+library(readxl)
 
 ```
 
@@ -64,57 +36,5 @@ leaflet(geo_data) %>%
                             "<strong>City:</strong>", city, "<br>",
                             "<strong>Years:</strong>", year_start, "-", year_end, "<br>",
                             "<strong>Type:</strong>", type))
-
-```
-
-## Races summary
-
-```{r, include=FALSE}
-
-# Packages
-library(readxl)
-library(dplyr)
-library(ggplot2)
-library(kableExtra)
-library(lubridate)
-library(ggimage)
-library(dplyr)
-library(ggplot2)
-
-# Données
-course_data <- read_excel("data/data.xlsx", sheet = "sport")
-
-# Créer les catégories de classement
-classement_summary <- course_data %>%
-  mutate(classement_cat = case_when(
-    ranking == 1           ~ "Top 1",
-    ranking <= 3           ~ "Top 3",
-    ranking <= 5           ~ "Top 5",
-    ranking <= 10          ~ "Top 10",
-    ranking <= 25          ~ "Top 25",
-    TRUE                   ~ "> Top 25"
-  )) %>%
-  group_by(sport, classement_cat) %>%
-  summarise(n = n(), .groups = "drop") %>% 
-  mutate(classement_cat = factor(classement_cat,
-                                  levels = c("Top 1", "Top 3", "Top 5", "Top 10", "Top 25", "> Top 25")))
-
-# Préparer le plot
-max_n <- max(classement_summary$n) + 0.5
-
-```
-
-```{r, echo=FALSE, results='asis', fig.width=7, fig.height=4}
-
-# Plot
-ggplot(classement_summary, aes(x = classement_cat, y = n, fill = classement_cat)) +
-  geom_col() +
-  geom_text(aes(label = n), vjust = -0.5, size = 4) +
-  labs(title = "", x = "", y = "Nombre de courses") +
-  scale_fill_brewer(palette = "Set2") +
-  theme_test() + 
-  theme(legend.position = "none") + 
-  scale_y_continuous(limits = c(0,max(max_n))) + 
-  facet_wrap(~sport)
 
 ```

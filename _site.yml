@@ -17,8 +17,8 @@ navbar:
       href: communications.html 
     - text: "◉ 📚 Teaching & Mentoring" 
       href: teaching_mentoring.html 
-    - text: "◉ 🏈 Sport" 
-      href: sport.html 
+    # - text: "◉ 🏈 Sport" (à mettre à jour)
+    #   href: sport.html (à mettre à jour)
   right:
     - text: "Github"
       menu:

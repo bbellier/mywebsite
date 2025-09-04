@@ -13,14 +13,16 @@ editor_options:
 # Packages
 library(readxl)
 library(dplyr)
-library(readxl)
-library(dplyr)
 library(ggplot2)
 library(tidyverse)
 library(glue)
+library(pdftools)
+library(tidytext)
+library(wordcloud2)
+library(tm)
+library(leaflet)
 
 ```
-
 
 ## Research jobs
 
@@ -160,3 +162,49 @@ cat(glue(
 }
 
 ```
+
+## Wordcloud (thematics, skills, etc.)
+
+```{r skills, echo=FALSE, results='asis'}
+
+# Fonction pour générer un entier aléatoire
+random_freq <- function(freq = 1, min = 1, max = 100) {
+  sample(min:max, freq, replace = TRUE)
+}
+
+# Lecture et transformation
+word_freq <- read_excel("data/data.xlsx", sheet = "skills") %>%
+  pivot_longer(cols = c("word_zone", "word_methods", "word_pressures", "word_biological_models"),
+               values_to = "word", names_to = "type") %>%
+  filter(!is.na(word)) %>%
+  mutate(
+    word = gsub(" ", "_", word),
+    freq = random_freq(n())
+  )
+
+# Modifier manuellement les mots clés
+word_freq <- word_freq %>%
+  mutate(freq = case_when(
+    word == "fish" ~ 130,
+    word == "RStudio" ~ 120,
+    word == "chemicals" ~ 110,
+    word == "data" ~ 95,
+    word == "ecotoxicology" ~ 90,
+    word == "pollution" ~ 85,
+    word == "anthropocene" ~ 80,
+    TRUE ~ freq
+  )) %>%
+  select(word, freq) %>%
+  arrange(desc(freq))
+
+# Génération du nuage
+wordcloud2(data = word_freq,
+           size = 0.5,
+           color = rep_len(c("#4B9CD3", "#6A9FB5", "#AAC8D8", "#D1E4F3"), nrow(word_freq)),
+           backgroundColor = "white",
+           rotateRatio = 0.3,
+           minRotation = -pi/6,
+           maxRotation = pi/6)
+
+```
+
