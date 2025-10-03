@@ -30,7 +30,7 @@ library(ggplot2)
 # Chargement des données
 pub_data <- read_excel("data/data.xlsx", sheet = "publications & communications", na = "NA") %>%
   filter(category %in% c("Webinar", "Presentation", "Poster")) %>%
-  arrange(desc(year), desc(month))
+  arrange(desc(order))
 
 icons_data <- read_excel("data/data.xlsx", sheet = "icons", na = "NA")
 
